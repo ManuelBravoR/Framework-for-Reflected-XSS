@@ -253,4 +253,6 @@ https://demo.testfire.net/search.jsp?query=<script>alert(document.cookie)</scrip
 >*Referencias: [PortSwigger](https://portswigger.net/web-security/cross-site-scripting)*
 >>*Referencias: [TryHackme](https://tryhackme.com/room/axss)*
 >>>*Referencias: [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)*
+>>>>*Referencias: [AmrSec](https://www.youtube.com/watch?v=bAHNM8IInwE&ab_channel=AmrSec)*
+>>>>>*Referencias: [Javo y LemonOfTroy](https://www.youtube.com/watch?v=EUWEdaNvxSM&ab_channel=ThreatXSecurity)*
 
