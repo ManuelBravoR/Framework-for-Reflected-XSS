@@ -17,7 +17,7 @@ Este repositorio contiene un marco de trabajo básico para la detección y explo
 > *“This web application is purposely designed to have security vulnerabilities for educational and testing purposes.”*
 
 ---
-
+<!-- espacio -->
 ## 1. Add Custom HTTP Headers in Burp Suite
 
 ```bash
@@ -43,7 +43,7 @@ Content-Length: 34
 ```
 >*Referencias: [Requestly](https://requestly.com/blog/modify-headers-in-https-requests-and-responses-in-chrome-firefox-safari/) [Exploit-notes](https://exploit-notes.hdks.org/exploit/web/tool/add-custom-http-headers-in-burp-suite/) [Website for testing header](https://httpbin.org/headers)*
 
-
+<!-- espacio -->
 ## 2. Encontrar subdomains
 ```bash
 subfinder -d testfire.net -silent -all -recursive -o testfire.net_subs.txt
@@ -58,6 +58,7 @@ cat *_subs.txt | sort -u | anew testfire.net_all_subs.txt
 ```
 >*Referencias: [Generate Token](https://github.com/settings/personal-access-tokens/)*
 
+<!-- espacio -->
 ## 3. Web Crawling para encontrar URLs interesantes
 ```bash
 #Simple command
@@ -91,6 +92,7 @@ echo "[+] Finalizado. Resultados en $OUTPUT"
 ```
 </details>
 
+<!-- espacio -->
 ## 4. Buscar patrones comunes de XSS en URLs
 ```bash
 nano filtrar_parameters_xss.sh
@@ -162,6 +164,7 @@ echo "[+] Resultados guardados en $OUTPUT_FILE"
 
 >*Referencias: [Patrones xss](https://github.com/1ndianl33t/Gf-Patterns/blob/master/xss.json)*
 
+<!-- espacio -->
 ## 5. Investigación de candidatos
 ```bash
 #cat parametros_xss.txt.txt
@@ -223,6 +226,7 @@ https://demo.testfire.net/search.jsp?query=<script>alert(document.cookie)</scrip
 
 >*Referencias: [Payload xss comunes](https://github.com/payloadbox/xss-payload-list)*
 
+<!-- espacio -->
 ## 6. ¿Qué está pasando background?
 > El servidor inserta directamente lo que escribimos en query en su HTML
 
@@ -245,8 +249,9 @@ https://demo.testfire.net/search.jsp?query=<script>alert(document.cookie)</scrip
 &lt;script&gt;alert(document.location)&lt;/script&gt;
 ```
 
+<!-- espacio -->
 ## Creditos y Recursos
 >*Referencias: [PortSwigger](https://portswigger.net/web-security/cross-site-scripting)*
->*Referencias: [TryHackme](https://tryhackme.com/room/axss)*
->*Referencias: [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)*
+>>*Referencias: [TryHackme](https://tryhackme.com/room/axss)*
+>>>*Referencias: [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)*
 
