@@ -1,4 +1,4 @@
-# Marco de trabajo para XSS Reflejado (Reflected XSS Framework)
+# Reflected XSS Framework
 
 ![Anatomía de un ataque XSS](https://websitesecuritystore.com/wp-content/uploads/2021/07/cross-site-scripting-examples.svg)
 
