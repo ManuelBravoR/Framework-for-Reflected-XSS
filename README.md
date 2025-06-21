@@ -18,7 +18,7 @@ Este repositorio contiene un marco de trabajo básico para la detección y explo
 
 ---
 <!-- espacio -->
-## 1. Add Custom HTTP Headers in Burp Suite
+## 1. Agregar HTTP Headers personalizados en Burp Suite
 
 ```bash
 # En Burp -> Proxy -> match/replace rule
