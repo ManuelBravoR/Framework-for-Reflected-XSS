@@ -49,11 +49,11 @@ Content-Length: 34
 subfinder -d testfire.net -silent -all -recursive -o testfire.net_subs.txt
 amass enum -passive -d testfire.net -o testfire.net_amass_subs.txt
 url -s "https://crt.sh/?q=%25.testfire.net&output=json" | jq -r '.[] | .name_value' | sed 's/\*\.//g' | anew testfire.net_crt.txt
-github-subdomains -d testfire.net -t [github_toke] -o testfire.net_github_subs.txt
+github-subdomains -d testfire.net -t [github_token] -o testfire.net_github_subs.txt
 cat *_subs.txt | sort -u | anew testfire.net_all_subs.txt
 ```
 ```bash
-# Obtener toekn github
+# Obtener token github
 #Fine-grained personal access tokens -> Generate new token
 ```
 >*Referencias: [Generate Token](https://github.com/settings/personal-access-tokens/)*
