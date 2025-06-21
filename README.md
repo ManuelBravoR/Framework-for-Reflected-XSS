@@ -167,7 +167,7 @@ echo "[+] Resultados guardados en $OUTPUT_FILE"
 <!-- espacio -->
 ## 5. Investigación de candidatos
 ```bash
-#cat parametros_xss.txt.txt
+#cat parametros_xss.txt
 https://demo.testfire.net/search.jsp
 ...
 https://demo.testfire.net/swagger/err/error-transformers/transformers/not-of-type.js
