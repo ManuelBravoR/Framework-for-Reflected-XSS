@@ -231,14 +231,13 @@ https://demo.testfire.net/search.jsp?query=<script>alert(document.cookie)</scrip
 > El servidor inserta directamente lo que escribimos en query en su HTML
 
 ```bash
-<!-- TOC END -->
-    <td valign="top" colspan="3" class="bb">
-				<div class="fl" style="width: 99%;">
-				<h1>Search Results</h1>
-				<p>No results were found for the query:<br /><br />
-				<script>alert(document.location)</script>
-				</div>    
-    </td>	
+<td valign="top" colspan="3" class="bb">
+ <div class="fl" style="width: 99%;">
+  <h1>Search Results</h1>
+	<p>No results were found for the query:<br /><br />
+	<script>alert(document.location)</script>
+ </div>    
+</td>	
 ```
 > El navegador no ve eso como texto, sino como un verdadero elemento <script>, y por eso lo ejecuta inmediatamente.
 > Para evitar este ataque, debería escapar los caracteres especiales como <, >, " y ' en el parámetro query.
