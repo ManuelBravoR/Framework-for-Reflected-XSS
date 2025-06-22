@@ -352,7 +352,7 @@ URL: https://demo.testfire.net/index.jsp?content=inside_careers.htm Param: conte
 ```
 
 <!-- espacio -->
->> Es necesario hacer análisis manual y pruebas para confirmar la vulnerabilidad
+> Es necesario hacer análisis manual y pruebas para confirmar la vulnerabilidad
 >> Kxss usando urlfinder (10/10)
 ```bash
 urlfinder -d demo.testfire.net | grep = | kxss > kxss_demo.txt
@@ -402,6 +402,7 @@ URL: http://altoro.testfire.net/index.jsp?content=inside_jobs.htm&job=LoyaltyMar
 URL: http://altoro.testfire.net/index.jsp?content=inside_jobs.htm Param: content Unfiltered: [" ' < > $ | ( ) ` : ; { }] 
 URL: http://altoro.testfire.net/index.jsp?content=personal_loans.htm Param: content Unfiltered: [" ' < > $ | ( ) ` : ; { }] 
 ```
+> Es necesario hacer análisis manual y pruebas para confirmar la vulnerabilidad
 
 <!-- espacio -->
 <!-- espacio -->
