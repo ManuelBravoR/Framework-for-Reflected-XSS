@@ -393,7 +393,18 @@ done < "$SUBDOMAINS_FILE"
 echo "[✔] Escaneo finalizado. Revisa la carpeta: $OUTPUT_DIR"
 ```
 </details>
-![image](https://github.com/user-attachments/assets/4243779d-aee0-412f-bb42-2dec702a4c26)
+
+![image](https://github.com/user-attachments/assets/0c5a3d6a-883c-4322-825a-73bc2747f7f3)
+![image](https://github.com/user-attachments/assets/fc70261a-1db1-4879-828a-50a5806e9cec)
+
+```bash
+└─$ cat altoro_testfire_net.txt  
+URL: http://altoro.testfire.net/index.jsp?content=inside_jobs.htm&job=LoyaltyMarketingProgramManager:Marketing Param: content Unfiltered: [" ' < > $ | ( ) ` : ; { }] 
+...
+URL: http://altoro.testfire.net/index.jsp?content=inside_jobs.htm Param: content Unfiltered: [" ' < > $ | ( ) ` : ; { }] 
+URL: http://altoro.testfire.net/index.jsp?content=personal_loans.htm Param: content Unfiltered: [" ' < > $ | ( ) ` : ; { }] 
+```
+
 
 <!-- espacio -->
 <!-- espacio -->
