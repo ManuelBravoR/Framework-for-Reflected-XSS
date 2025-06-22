@@ -357,9 +357,6 @@ URL: https://demo.testfire.net/index.jsp?content=inside_careers.htm Param: conte
 urlfinder -d demo.testfire.net | grep = | kxss > kxss_demo.txt
 ```
 ```bash
-urlfinder -d demo.testfire.net | grep = | kxss > kxss_demo.txt
-```
-```bash
 nano kxss_scan.sh
 chmod +x kxss_scan.sh
 ./kxss_scan.sh
