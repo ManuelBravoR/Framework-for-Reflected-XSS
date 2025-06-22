@@ -320,7 +320,7 @@ https://demo.testfire.net/util/serverStatusCheckService.jsp?HostName=
 https://demo.testfire.net/disclaimer.htm?url=http://www.microsoft.com
 https://demo.testfire.net/disclaimer.htm?url=http://www.netscape.com 
 ```
-> Filtrar el fichero que contiene las url katana que contengan patrones xss
+> Es necesario hacer análisis manual y pruebas para confirmar la vulnerabilidad.
 ```bash
 #payload:
 <script>alert(document.cookie)</script>
