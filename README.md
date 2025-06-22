@@ -394,7 +394,7 @@ echo "[✔] Escaneo finalizado. Revisa la carpeta: $OUTPUT_DIR"
 ```
 </details>
 
-![image](https://github.com/user-attachments/assets/0c5a3d6a-883c-4322-825a-73bc2747f7f3)
+![image](https://github.com/user-attachments/assets/823d512c-4896-49a8-ab51-e5d9f42f5349)
 ![image](https://github.com/user-attachments/assets/fc70261a-1db1-4879-828a-50a5806e9cec)
 
 ```bash
@@ -405,7 +405,7 @@ URL: http://altoro.testfire.net/index.jsp?content=inside_jobs.htm Param: content
 URL: http://altoro.testfire.net/index.jsp?content=personal_loans.htm Param: content Unfiltered: [" ' < > $ | ( ) ` : ; { }] 
 ```
 
-
+<!-- espacio -->
 <!-- espacio -->
 <!-- espacio -->
 ## Creditos y Recursos
