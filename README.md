@@ -352,6 +352,7 @@ URL: https://demo.testfire.net/index.jsp?content=inside_careers.htm Param: conte
 ```
 
 <!-- espacio -->
+>> Es necesario hacer análisis manual y pruebas para confirmar la vulnerabilidad
 >> Kxss usando urlfinder (10/10)
 ```bash
 urlfinder -d demo.testfire.net | grep = | kxss > kxss_demo.txt
